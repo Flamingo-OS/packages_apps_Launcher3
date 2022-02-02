@@ -36,6 +36,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.android.launcher3.settings.preference.IconPackPrefSetter;
 import com.android.launcher3.settings.preference.ReloadingListPreference;
@@ -44,6 +45,7 @@ import com.android.launcher3.util.AppReloader;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.view.WindowCompat;
+import androidx.preference.SwitchPreference;
 
 import com.android.internal.util.flamingo.FlamingoUtils;
 import com.android.launcher3.DeviceProfile;
@@ -151,7 +153,8 @@ public class SettingsActivity extends CollapsingToolbarBaseActivity
     }
 
     @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) { }
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+    }
 
 
     private boolean startPreference(String fragment, Bundle args, String key) {
@@ -204,7 +207,7 @@ public class SettingsActivity extends CollapsingToolbarBaseActivity
 
         protected static final String GSA_PACKAGE = "com.google.android.googlequicksearchbox";
 
-        private Preference mShowGoogleAppPref;
+        private Preference mShowGoogleAppPref, mDockSearchPref;
         private ReloadingListPreference mIconPackPref;
 
         @Override
@@ -310,6 +313,16 @@ public class SettingsActivity extends CollapsingToolbarBaseActivity
                         return true;
                     });
                     return true;
+
+                case Utilities.KEY_DOCK_SEARCH:
+                    mDockSearchPref = preference;
+                    ((SwitchPreference) mDockSearchPref).setChecked(Utilities.showQSB(getContext()));
+                    mDockSearchPref.setOnPreferenceChangeListener((pref, newValue) -> {
+                        Toast.makeText(getContext(), R.string.flag_wont_be_applied, Toast.LENGTH_LONG).show();
+                        return true;
+                    });
+                    updateIsGoogleAppEnabled();
+                    return true;
             }
             return true;
         }
@@ -337,8 +350,12 @@ public class SettingsActivity extends CollapsingToolbarBaseActivity
         }
 
         private void updateIsGoogleAppEnabled() {
+            final boolean isGSAEnabled = isGSAEnabled(getContext());
             if (mShowGoogleAppPref != null) {
-                mShowGoogleAppPref.setEnabled(isGSAEnabled(getContext()));
+                mShowGoogleAppPref.setEnabled(isGSAEnabled);
+            }
+            if (mDockSearchPref != null) {
+                mDockSearchPref.setEnabled(isGSAEnabled);
             }
         }
         
@@ -380,7 +397,6 @@ public class SettingsActivity extends CollapsingToolbarBaseActivity
             if (screen == null) {
                 return null;
             }
-
             RecyclerView list = getListView();
             PreferencePositionCallback callback = (PreferencePositionCallback) list.getAdapter();
             int position = callback.getPreferenceAdapterPosition(mHighLightKey);
