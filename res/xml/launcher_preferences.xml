@@ -39,6 +39,10 @@
         android:persistent="false"
         android:widgetLayout="@layout/notification_pref_warning" />
 
+    <SwitchPreference
+        android:key="pref_allow_phone_taskbar"
+        android:title="@string/pref_allow_phone_taskbar"
+        android:summary="@string/pref_allow_phone_taskbar_desc" />
     <!--
       LAUNCHER_ADD_NEW_APPS_TO_HOME_SCREEN_ENABLED(613)
       LAUNCHER_ADD_NEW_APPS_TO_HOME_SCREEN_DISABLED(614)
