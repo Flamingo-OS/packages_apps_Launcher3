@@ -120,4 +120,10 @@
         android:summary="@string/dock_search_summary"
         android:defaultValue="false" />
 
+    <SwitchPreference
+        android:key="pref_show_top_shadow"
+        android:title="@string/show_top_shadow"
+        android:defaultValue="true"
+        android:persistent="true" />
+
 </androidx.preference.PreferenceScreen>
