@@ -207,7 +207,7 @@ public class SettingsActivity extends CollapsingToolbarBaseActivity
 
         protected static final String GSA_PACKAGE = "com.google.android.googlequicksearchbox";
 
-        private Preference mShowGoogleAppPref, mDockSearchPref;
+        private Preference mShowGoogleAppPref, mDockSearchPref, mSmartspacePref;
         private ReloadingListPreference mIconPackPref;
 
         @Override
@@ -300,6 +300,11 @@ public class SettingsActivity extends CollapsingToolbarBaseActivity
                     mDeveloperOptionPref = preference;
                     return updateDeveloperOption();
 
+                case KEY_ENABLE_MINUS_ONE:
+                    mShowGoogleAppPref = preference;
+                    updateIsGoogleAppEnabled();
+                    return true;
+
                 case Utilities.KEY_ICON_PACK:
                     mIconPackPref = (ReloadingListPreference) preference;
                     mIconPackPref.setValue(IconDatabase.getGlobal(getActivity()));
@@ -318,6 +323,16 @@ public class SettingsActivity extends CollapsingToolbarBaseActivity
                     mDockSearchPref = preference;
                     ((SwitchPreference) mDockSearchPref).setChecked(Utilities.showQSB(getContext()));
                     mDockSearchPref.setOnPreferenceChangeListener((pref, newValue) -> {
+                        Toast.makeText(getContext(), R.string.flag_wont_be_applied, Toast.LENGTH_LONG).show();
+                        return true;
+                    });
+                    updateIsGoogleAppEnabled();
+                    return true;
+                
+                case Utilities.KEY_SMARTSPACE:
+                    mSmartspacePref = preference;
+                    ((SwitchPreference) mSmartspacePref).setChecked(Utilities.showSmartspace(getContext()));
+                    mSmartspacePref.setOnPreferenceChangeListener((pref, newValue) -> {
                         Toast.makeText(getContext(), R.string.flag_wont_be_applied, Toast.LENGTH_LONG).show();
                         return true;
                     });
