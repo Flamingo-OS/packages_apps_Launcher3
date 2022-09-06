@@ -21,29 +21,29 @@
     <string name="google_folder_title">Google</string>
 
     <!-- Settings title to show Google Now at -1 screen on launcher. [CHAR LIMIT=50] -->
-    <string name="title_show_google_app">划動進入 Google 應用</string>
+    <string name="title_show_google_app">Google 資訊流</string>
     <!-- Settings message explaining when the -1 screen is available on an LTR device. [CHAR LIMIT=100] -->
-    <string name="msg_minus_one_on_left">在主螢幕上，向左滑動以開啟 Google 應用</string>
+    <string name="msg_minus_one_on_left">在主螢幕上，向左滑動以開啟資訊流</string>
     <!-- Settings message explaining when the -1 screen is available on an RTL device. [CHAR LIMIT=100] -->
-    <string name="msg_minus_one_on_right">在主螢幕上，向右滑動以開啟 Google 應用</string>
+    <string name="msg_minus_one_on_right">在主螢幕上，向右滑動以開啟資訊流</string>
 
     <!-- Suggestions -->
     <string name="suggestion_pref_screen_title">建議</string>
     <string name="suggestion_pref_screen_desc">在應用抽屜和主螢幕顯示建議</string>
 
-     <!-- DT2S -->
+    <!-- DT2S -->
     <string name="pref_sleep_gesture_title">雙擊鎖屏</string>
-    <string name="pref_sleep_gesture_summary">雙擊主螢幕空白處以鎖屏</string>
+    <string name="pref_sleep_gesture_summary">雙擊空白處鎖屏</string>
     
     <!-- Edit workspace -->
     <string name="settings_lock_layout_title">鎖定佈局</string>
-    <string name="settings_lock_layout_summary_on">圖示和微件不能在主螢幕上新增、刪除和移動</string>
-    <string name="settings_lock_layout_summary_off">可以在主螢幕上新增、刪除和移動圖示和微件</string>
+    <string name="settings_lock_layout_summary_on">禁止在主螢幕上新增、刪除和移動圖示或微件</string>
+    <string name="settings_lock_layout_summary_off">允許在主螢幕上新增、刪除和移動圖示或微件</string>
     <string name="settings_edit_widgets_error">您無法在主螢幕上新增微件</string>
 
     <!-- Hide labels -->
-    <string name="desktop_show_labels">桌面顯示圖示名稱</string>
-    <string name="drawer_show_labels">應用抽屜顯示圖示名稱</string>
+    <string name="desktop_show_labels">桌面圖示名稱</string>
+    <string name="drawer_show_labels">應用抽屜圖示名稱</string>
 
     <!-- Recents -->
     <string name="action_lens">智慧鏡頭</string>
