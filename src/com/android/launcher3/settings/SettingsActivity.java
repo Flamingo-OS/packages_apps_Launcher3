@@ -23,10 +23,11 @@ import static com.android.launcher3.states.RotationHelper.ALLOW_ROTATION_PREFERE
 import static com.android.launcher3.OverlayCallbackImpl.KEY_ENABLE_MINUS_ONE;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.ResolveInfoFlags;
+import android.content.pm.ResolveInfo;
 import android.app.Activity;
-import com.android.launcher3.customization.IconDatabase;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -35,31 +36,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.android.launcher3.settings.preference.IconPackPrefSetter;
-import com.android.launcher3.settings.preference.ReloadingListPreference;
-import com.android.launcher3.util.AppReloader;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.view.WindowCompat;
-import androidx.preference.SwitchPreference;
-
-import com.android.internal.util.flamingo.FlamingoUtils;
-import com.android.launcher3.DeviceProfile;
-import com.android.launcher3.InvariantDeviceProfile;
-import com.android.launcher3.LauncherFiles;
-import com.android.launcher3.R;
-import com.android.launcher3.Utilities;
-import com.android.launcher3.config.FeatureFlags;
-import com.android.launcher3.model.WidgetsModel;
-import com.android.launcher3.states.RotationHelper;
-import com.android.launcher3.uioverrides.plugins.PluginManagerWrapper;
-
-import com.android.settingslib.collapsingtoolbar.CollapsingToolbarBaseActivity;
-
-import java.util.Collections;
-import java.util.List;
-
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -69,14 +48,33 @@ import androidx.preference.PreferenceFragmentCompat.OnPreferenceStartFragmentCal
 import androidx.preference.PreferenceFragmentCompat.OnPreferenceStartScreenCallback;
 import androidx.preference.PreferenceGroup.PreferencePositionCallback;
 import androidx.preference.PreferenceScreen;
+import androidx.preference.SwitchPreference;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.android.internal.util.flamingo.FlamingoUtils;
+import com.android.launcher3.DeviceProfile;
+import com.android.launcher3.InvariantDeviceProfile;
+import com.android.launcher3.LauncherFiles;
+import com.android.launcher3.R;
+import com.android.launcher3.Utilities;
+import com.android.launcher3.config.FeatureFlags;
+import com.android.launcher3.customization.IconDatabase;
+import com.android.launcher3.model.WidgetsModel;
+import com.android.launcher3.settings.preference.IconPackPrefSetter;
+import com.android.launcher3.settings.preference.ReloadingListPreference;
+import com.android.launcher3.states.RotationHelper;
+import com.android.launcher3.uioverrides.plugins.PluginManagerWrapper;
+import com.android.launcher3.util.AppReloader;
+import com.android.settingslib.collapsingtoolbar.CollapsingToolbarBaseActivity;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Settings activity for Launcher. Currently implements the following setting: Allow rotation
  */
 public class SettingsActivity extends CollapsingToolbarBaseActivity
-        implements OnPreferenceStartFragmentCallback, OnPreferenceStartScreenCallback,
-        SharedPreferences.OnSharedPreferenceChangeListener {
+        implements OnPreferenceStartFragmentCallback, OnPreferenceStartScreenCallback {
 
     public interface OnResumePreferenceCallback {
         void onResume();
@@ -100,6 +98,9 @@ public class SettingsActivity extends CollapsingToolbarBaseActivity
     static final String EXTRA_FRAGMENT = ":settings:fragment";
     @VisibleForTesting
     static final String EXTRA_FRAGMENT_ARGS = ":settings:fragment_args";
+
+    private static final String KEY_SUGGESTIONS = "pref_suggestions";
+    private static final Intent SUGGESTIONS_INTENT = new Intent("android.settings.ACTION_CONTENT_SUGGESTIONS_SETTINGS");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,7 +128,6 @@ public class SettingsActivity extends CollapsingToolbarBaseActivity
             // Display the fragment as the main content.
             fm.beginTransaction().replace(com.android.settingslib.collapsingtoolbar.R.id.content_frame, f).commit();
         }
-        Utilities.getPrefs(getApplicationContext()).registerOnSharedPreferenceChangeListener(this);
     }
 
     /**
@@ -150,11 +150,6 @@ public class SettingsActivity extends CollapsingToolbarBaseActivity
             return preferenceFragment;
         }
     }
-
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-    }
-
 
     private boolean startPreference(String fragment, Bundle args, String key) {
         if (Utilities.ATLEAST_P && getSupportFragmentManager().isStateSaved()) {
@@ -339,6 +334,9 @@ public class SettingsActivity extends CollapsingToolbarBaseActivity
                     });
                     updateIsGoogleAppEnabled();
                     return true;
+
+                case KEY_SUGGESTIONS:
+                    return areSuggestionsAvailable();
             }
             return true;
         }
@@ -428,6 +426,15 @@ public class SettingsActivity extends CollapsingToolbarBaseActivity
                             .performAccessibilityAction(ACTION_ACCESSIBILITY_FOCUS, null);
                 }
             });
+        }
+
+        private boolean areSuggestionsAvailable() {
+            final List<ResolveInfo> resolvedIntents = requireContext().getPackageManager()
+                .queryIntentActivities(
+                    SUGGESTIONS_INTENT,
+                    ResolveInfoFlags.of(PackageManager.MATCH_ALL)
+                );
+            return !resolvedIntents.isEmpty();
         }
     }
 }
