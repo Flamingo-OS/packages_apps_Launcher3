@@ -29,6 +29,7 @@
     <string name="drawer_show_labels">Показывать ярлыки иконок в меню</string>
 
     <!-- AppInfo -->
+    <string name="app_info_subtext">Проведите вниз, чтобы закрыть информацию о приложении.</string>
     <string name="placeholder_string">Загрузка...</string> <!-- Used for preference height loading. -->
     <string name="app_info_icon_pack">Набор иконок</string>
     <string name="app_info_icon_pack_none">Нет</string>
