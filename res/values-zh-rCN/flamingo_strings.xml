@@ -1,36 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-/*
-* Copyright (C) 2016 The Android Open Source Project
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*      http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+     Copyright (C) 2022 FlamingoOS Project
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+   
+          http://www.apache.org/licenses/LICENSE-2.0
+   
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
 -->
 
 <resources>
      <!-- Edit workspace -->
     <string name="settings_lock_layout_title">锁定布局</string>
-    <string name="settings_lock_layout_summary_on">无法在主屏幕上添加、删除和移动图标和小部件</string>
-    <string name="settings_lock_layout_summary_off">可以在主屏幕上添加、删除和移动图标和小部件</string>
-    <string name="settings_edit_widgets_error">无法将小部件添加到主屏幕</string>
+    <string name="settings_lock_layout_summary_on">无法在主屏幕上添加、删除和移动图标和微件</string>
+    <string name="settings_lock_layout_summary_off">可以在主屏幕上添加、删除和移动图标和微件</string>
+    <string name="settings_edit_widgets_error">无法将微件添加到主屏幕</string>
 
     <!-- Hide labels -->
-    <string name="desktop_show_labels">在桌面上显示图标标签</string>
-    <string name="drawer_show_labels">在抽屉中显示图标标签</string>
+    <string name="desktop_show_labels">在桌面上显示图标名称</string>
+    <string name="drawer_show_labels">在抽屉中显示图标名称</string>
 
     <!-- AppInfo -->
-    <string name="app_info_subtext">向下滑动关闭应用信息。</string>
-    <string name="placeholder_string">Loading...</string> <!-- Used for preference height loading. -->
+    <string name="app_info_subtext">向下滑动关闭应用信息</string>
+    <string name="placeholder_string">加载中...</string> <!-- Used for preference height loading. -->
     <string name="app_info_icon_pack">图标包</string>
     <string name="app_info_icon_pack_none">无</string>
     <string name="app_info_source">来源</string>
@@ -51,11 +48,11 @@
 
     <!-- Suggestions -->
     <string name="suggestion_pref_screen_title">建议</string>
-    <string name="suggestion_pref_screen_desc">适用于所有应用 &amp; 主屏幕建议</string>
+    <string name="suggestion_pref_screen_desc">在应用抽屉和主屏幕中显示建议</string>
 
     <!-- DT2S -->
     <string name="pref_sleep_gesture_title">双击睡眠</string>
-    <string name="pref_sleep_gesture_summary">>双击空白处睡眠</string>
+    <string name="pref_sleep_gesture_summary">双击空白处睡眠</string>
     
     <!-- Recents -->
     <string name="action_lens">镜头</string>
@@ -67,7 +64,7 @@
     <string name="dock_search_title">Google 搜索栏</string>
     <string name="dock_search_summary">在底部停靠栏中显示搜索栏</string>
 
-    <string name="flag_wont_be_applied">在您重新启动启动器之前不会应用标志</string>
+    <string name="flag_wont_be_applied">在您重启启动器之前不会应用此功能</string>
 
     <!-- Taskbar -->
     <string name="pref_allow_phone_taskbar">使用任务栏</string>
@@ -75,7 +72,7 @@
     
     <!-- Smartspace -->
     <string name="smartspace_pref_title">概览</string>
-    <string name="smartspace_pref_summary">在主屏幕顶部显示智能空间</string>
+    <string name="smartspace_pref_summary">在主屏幕顶部显示信息概览</string>
 
     <!-- Show top shadow -->
     <string name="show_top_shadow">显示顶部阴影</string>
